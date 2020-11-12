@@ -22,8 +22,10 @@ mongoose.connect(process.env.MONGODB_URI,
 const userRoute = require('./routes/user');
 app.use(userRoute);
 
+app.use(express.static("public"));
+
 app.get('/', (req, res) => {
-    res.send("Welcome to the AirBnB-API-Alex!");
+    res.sendFile(__dirname + "/signup.html");
 })
 
 app.all('*', (req, res) => {

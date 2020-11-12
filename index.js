@@ -23,7 +23,6 @@ const userRoute = require('./routes/user');
 app.use(userRoute);
 
 app.use(express.static("public"));
-app.use(express.static("assets"));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/signup.html");

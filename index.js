@@ -9,7 +9,9 @@ app.use(formidable());
 app.use(cors());
 app.use(helmet());
 
-mongoose.connect('mongodb://localhost/airbnb-api',
+require('dotenv').config();
+
+mongoose.connect(process.env.MONGODB_URI,
 {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -17,4 +19,17 @@ mongoose.connect('mongodb://localhost/airbnb-api',
     useFindAndModify: false
 });
 
+const userRoute = require('./routes/user');
+app.use(userRoute);
 
+app.get('/', (req, res) => {
+    res.send("Welcome to the AirBnB-API-Alex!");
+})
+
+app.all('*', (req, res) => {
+    res.status(404).json({ error : "page not found"})
+});
+
+app.listen(process.env.PORT, () => {
+    console.log("CONNECTED");
+});

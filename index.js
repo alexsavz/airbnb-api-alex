@@ -21,12 +21,14 @@ mongoose.connect(process.env.MONGODB_URI,
 
 const userRoute = require('./routes/user');
 app.use(userRoute);
+const roomRoute = require('./routes/room');
+app.use(roomRoute);
 
 app.use(express.static("public"));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/signup.html");
-})
+});
 
 app.all('*', (req, res) => {
     res.status(404).json({ error : "page not found"})

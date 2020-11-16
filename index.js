@@ -11,6 +11,7 @@ app.use(helmet());
 
 require('dotenv').config();
 
+//BDD
 mongoose.connect(process.env.MONGODB_URI,
 {
     useNewUrlParser: true,
@@ -19,6 +20,15 @@ mongoose.connect(process.env.MONGODB_URI,
     useFindAndModify: false
 });
 
+// CLOUDINARY
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+//ROUTES
 const userRoute = require('./routes/user');
 app.use(userRoute);
 const roomRoute = require('./routes/room');

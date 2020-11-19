@@ -5,6 +5,8 @@ const User = mongoose.model("User", {
   token: String,
   hash: String,
   salt: String,
+  resetPasswordToken: { type: String, default: null },
+  resetPasswordDate: { type: Number, default: null },
   account: {
     username: { type: String, required: true, unique: true },
     name: String,

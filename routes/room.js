@@ -40,15 +40,6 @@ router.post('/room/publish', isAuthenticated, async (req, res) => {
     }
 });
 
-router.get('/rooms', async (req, res) => {
-    try {
-        const allTheRoomsToRent = await Room.find().select('title price location');
-        res.status(200).json({allTheRoomsToRent});
-    } catch (error) {
-        res.status(400).json({message : error.message});
-    }
-});
-
 router.get('/rooms/:id', async (req, res) => {
     try {
         const theUserRooms = await Room.find(req.params._id).populate('user');
@@ -192,6 +183,29 @@ router.put('/room/delete_picture/:id', isAuthenticated,async (req, res) => {
             else{
                 res.status(400).json({message : "Missing parameter"});
             }
+        } catch (error) {
+            res.status(400).json({message : error.message});
+        }
+    }
+    else{
+        res.status(400).json({message : "Missing parameter"});
+    }
+});
+
+
+// Read rooms with filter
+router.get('/rooms',isAuthenticated, async (req, res) => {
+    if(req.query){
+        try {
+            if(req.user){
+                if(req.query.title){
+                    
+                }
+            }
+            else{
+                res.status(401).json({message : "Unauthorized"});
+            }
+            
         } catch (error) {
             res.status(400).json({message : error.message});
         }
